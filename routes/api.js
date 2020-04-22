@@ -32,9 +32,15 @@ router.get("/api/workouts", (req, res) => {
     });
 });
 
+router.put("/api/workouts/:id", function(req, res) {
+  console.log(req.body);
+  Workout.updateOne({ _id: req.params.id }, { exercises: req.body }).then(function(dbWorkout) {
+    res.json(dbWorkout);
+  });
+});
+
 router.get("/api/workouts/range", (req, res) => {
   Workout.find({})
-    .sort({ date: -1 })
     .then(dbWorkout => {
       res.json(dbWorkout);
     })
